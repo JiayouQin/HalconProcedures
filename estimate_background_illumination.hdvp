@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="20.11.0.0">
+<procedure name="estimate_background_illumination">
+<interface>
+<io>
+<par name="Image" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="IlluminationImage" base_type="iconic" dimension="0"/>
+</oo>
+</interface>
+<body>
+<l>get_image_size (Image, Width, Height)</l>
+<l>rft_generic (Image, ImageFFT, 'to_freq', 'none', 'complex', Width)</l>
+<l>gen_gauss_filter (ImageGauss, 50, 50, 0, 'n', 'rft', Width, Height)</l>
+<l>convol_fft (ImageFFT, ImageGauss, ImageConvol)</l>
+<l>rft_generic (ImageConvol, IlluminationImage, 'from_freq', 'none', 'byte', Width)</l>
+<l>return ()</l>
+</body>
+<docu id="estimate_background_illumination">
+<parameters>
+<parameter id="IlluminationImage"/>
+<parameter id="Image"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

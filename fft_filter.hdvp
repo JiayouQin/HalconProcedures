@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="20.11.0.0">
+<procedure name="fft_filter">
+<interface>
+<io>
+<par name="Image" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="Result" base_type="iconic" dimension="0"/>
+</oo>
+<ic>
+<par name="hp_filter" base_type="ctrl" dimension="0"/>
+<par name="lp_filter" base_type="ctrl" dimension="0"/>
+</ic>
+</interface>
+<body>
+<c></c>
+<l>fft_generic (Image, ImageFFT, 'to_freq', -1, 'sqrt', 'dc_center', 'complex')</l>
+<l>get_image_size (Image, Width, Height)</l>
+<l>gen_circle (Circle, Height/2, Width/2, lp_filter)</l>
+<l>complement (Circle, RegionComplement)</l>
+<l>count_channels (ImageFFT, Channels)</l>
+<l>gen_circle(Circlesmall,Height/2,Width/2,hp_filter)</l>
+<c></c>
+<l>if (Channels==3)</l>
+<l>    paint_region (RegionComplement, ImageFFT, FFTLow, [0,0,0], 'fill')</l>
+<l>    paint_region(Circlesmall,FFTLow,ImageResult, [0,0,0], 'fill')</l>
+<l>else</l>
+<l>    paint_region (RegionComplement, ImageFFT, FFTLow, 0, 'fill')</l>
+<l>    paint_region(Circlesmall,FFTLow,ImageResult, 0, 'fill')</l>
+<l>endif</l>
+<c></c>
+<l>fft_generic (ImageResult, Result, 'from_freq', 1, 'sqrt', 'dc_center', 'real')</l>
+<l>return ()</l>
+</body>
+<docu id="fft_filter">
+<parameters>
+<parameter id="Image"/>
+<parameter id="Result"/>
+<parameter id="hp_filter"/>
+<parameter id="lp_filter"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="20.11.0.0">
+<procedure name="converge_grey">
+<interface>
+<io>
+<par name="Image" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="Result" base_type="iconic" dimension="0"/>
+</oo>
+<ic>
+<par name="k_size" base_type="ctrl" dimension="0"/>
+</ic>
+</interface>
+<body>
+<l>mean_image (Image, ImageMean, k_size, k_size)</l>
+<l>get_image_size (Image, Width, Height)</l>
+<l>gen_rectangle1 (Rectangle, 0, 0, Height, Width)</l>
+<l>intensity (Rectangle, Image, Mean, Deviation)</l>
+<l>gen_image_proto (Image, ImageAvg, Mean)</l>
+<l>sub_image (ImageMean, ImageAvg, ImageSub, 1, 0)</l>
+<l>sub_image (Image, ImageSub, Result, 1, 0)</l>
+<l>return ()</l>
+</body>
+<docu id="converge_grey">
+<parameters>
+<parameter id="Image"/>
+<parameter id="Result"/>
+<parameter id="k_size"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>
