@@ -6,7 +6,7 @@
 <par name="Image" base_type="iconic" dimension="0"/>
 </io>
 <oo>
-<par name="Result" base_type="iconic" dimension="0"/>
+<par name="ImageFiltered" base_type="iconic" dimension="0"/>
 </oo>
 <ic>
 <par name="hp_filter" base_type="ctrl" dimension="0"/>
@@ -30,13 +30,13 @@
 <l>    paint_region(Circlesmall,FFTLow,ImageResult, 0, 'fill')</l>
 <l>endif</l>
 <c></c>
-<l>fft_generic (ImageResult, Result, 'from_freq', 1, 'sqrt', 'dc_center', 'real')</l>
+<l>fft_generic (ImageResult, ImageFiltered, 'from_freq', 1, 'sqrt', 'dc_center', 'byte')</l>
 <l>return ()</l>
 </body>
 <docu id="fft_filter">
 <parameters>
 <parameter id="Image"/>
-<parameter id="Result"/>
+<parameter id="ImageFiltered"/>
 <parameter id="hp_filter"/>
 <parameter id="lp_filter"/>
 </parameters>

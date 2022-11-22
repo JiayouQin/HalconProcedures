@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<procedure name="rotate_image_noCrop">
+<interface>
+<io>
+<par name="Image" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="ImageRotate" base_type="iconic" dimension="0"/>
+</oo>
+<ic>
+<par name="Phi" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="HomMat2DTrans" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<l>    get_image_size (Image, W, H)</l>
+<c></c>
+<l>    hom_mat2d_identity (HomMat2DTrans)</l>
+<l>    hom_mat2d_rotate (HomMat2DTrans, Phi, W/2, H/2, HomMat2DCalc)</l>
+<c>    </c>
+<l>    cosVal:= abs(HomMat2DCalc[0])</l>
+<l>    sinVal:= abs(HomMat2DCalc[1])</l>
+<l>    newH := H*sinVal + W*cosVal</l>
+<l>    newW := H*cosVal + W*sinVal</l>
+<l>    dx:=(newW-W)/2</l>
+<l>    dy:=(newH-H)/2</l>
+<c>    </c>
+<l>    hom_mat2d_translate (HomMat2DCalc, dx, dy, HomMat2DTrans)</l>
+<l>    affine_trans_image (Image, ImageRotate, HomMat2DTrans, 'constant', 'true')</l>
+<c>    </c>
+<c>    </c>
+<l>return ()</l>
+</body>
+<docu id="rotate_image_noCrop">
+<parameters>
+<parameter id="HomMat2DTrans"/>
+<parameter id="Image"/>
+<parameter id="ImageRotate">
+<description lang="en_US">Output Image, pixel value in bytes.</description>
+<sem_type>image</sem_type>
+<type_list>
+<item>byte</item>
+</type_list>
+</parameter>
+<parameter id="Phi">
+<default_type>real</default_type>
+<default_value>0</default_value>
+<description lang="en_US">given Angle in degrees</description>
+<sem_type>angle</sem_type>
+<type_list>
+<item>integer</item>
+<item>real</item>
+</type_list>
+</parameter>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

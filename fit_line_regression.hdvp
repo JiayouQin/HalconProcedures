@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="20.11.0.0">
+<procedure name="fit_line_regression">
+<interface>
+<ic>
+<par name="Mx" base_type="ctrl" dimension="0"/>
+<par name="My" base_type="ctrl" dimension="0"/>
+<par name="lineX" base_type="ctrl" dimension="0"/>
+<par name="lineY" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="NewY" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<l>   tuple_length(Mx,len)</l>
+<c>   </c>
+<l>    create_matrix(len,1,My,y)</l>
+<l>    create_matrix(len,2,1,x)</l>
+<l>    set_value_matrix(x, [0:len-1], gen_tuple_const(len, 0),Mx)</l>
+<c></c>
+<c>    * XT 代表X的转置 inv(*)代表*的逆</c>
+<c>    * x beta = y</c>
+<c>    * xT x beta = xT y</c>
+<c>    * beta = inv( xT x) xT y</c>
+<c>      </c>
+<l>    mult_matrix(x,x,'ATB',xtx)</l>
+<l>    mult_matrix(x,y,'ATB',xty)</l>
+<l>    invert_matrix(xtx,'general', 0, invxtx)</l>
+<l>    mult_matrix(invxtx,xty,'AB', beta)</l>
+<l>    get_full_matrix(beta, Values)</l>
+<l>    NewY:=Values[0] * [lineX,lineY] + Values[1]</l>
+<c></c>
+<l>return ()</l>
+</body>
+<docu id="fit_line_regression">
+<parameters>
+<parameter id="Mx"/>
+<parameter id="My"/>
+<parameter id="NewY"/>
+<parameter id="lineX"/>
+<parameter id="lineY"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>
