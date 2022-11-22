@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="20.11.0.0">
+<procedure name="gray_to_rgb">
+<interface>
+<io>
+<par name="Image" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="ImageRGB" base_type="iconic" dimension="0"/>
+</oo>
+</interface>
+<body>
+<l>   copy_image (Image, G)</l>
+<l>   copy_image (Image, B)</l>
+<l>compose3 (Image, G, B, ImageRGB)</l>
+<l>return ()</l>
+</body>
+<docu id="gray_to_rgb">
+<parameters>
+<parameter id="Image"/>
+<parameter id="ImageRGB"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>
